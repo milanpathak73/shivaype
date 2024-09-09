@@ -56,6 +56,7 @@ class ClientController extends Controller
         SubAccount::create([
             'client_id' => Auth::id(),
             'username' => $request->username,
+            'email' => $request->username,
             'password' => bcrypt($request->password),
             'balance' => 0,
             'is_active' => true,
@@ -63,6 +64,19 @@ class ClientController extends Controller
 
         return redirect()->route('client.manage-sub-accounts')->with('success', 'Sub-account created.');
     }
+
+    public function showSubAccountWithdrawals()
+{
+    // Assuming you have a relationship set up
+    $subAccounts = auth()->user()->subAccounts; // Get all sub-accounts of the client
+    $withdrawals = [];
+
+    foreach ($subAccounts as $subAccount) {
+        $withdrawals = array_merge($withdrawals, $subAccount->withdrawals->toArray());
+    }
+
+    return view('client.subaccount.withdrawals', ['withdrawals' => $withdrawals]);
+}
 
     public function showRequestStatus()
     {

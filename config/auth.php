@@ -48,6 +48,10 @@ return [
         'driver' => 'session',
         'provider' => 'users',
     ],
+    'subaccount' => [
+        'driver' => 'session',
+        'provider' => 'subaccounts',
+    ],
 ],
 
 
@@ -81,6 +85,10 @@ return [
     'users' => [
         'driver' => 'eloquent',
         'model' => App\Models\User::class,
+    ],
+    'subaccounts' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\SubAccount::class,
     ],
 ],
 

@@ -36,6 +36,7 @@
                     <a href="{{ route('client.create-sub-account') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Create Sub-Account</a>
                     <a href="{{ route('client.request-status') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Request Status</a>
                     <a href="{{ route('client.manage-sub-accounts') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Manage Sub-Accounts</a>
+                    <a href="{{ route('client.subaccount.withdrawals') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Sub-Account Withdrawals</a>
                 </div>
                 <div class="hidden lg:block">
                     <form action="{{ route('logout') }}" method="GET" class="inline">
@@ -53,6 +54,7 @@
                     <a href="{{ route('client.create-sub-account') }}" class="block py-2 px-4 hover:bg-gray-600">Create Sub-Account</a>
                     <a href="{{ route('client.request-status') }}" class="block py-2 px-4 hover:bg-gray-600">Request Status</a>
                     <a href="{{ route('client.manage-sub-accounts') }}" class="block py-2 px-4 hover:bg-gray-600">Manage Sub-Accounts</a>
+                    <a href="{{ route('client.subaccount.withdrawals') }}" class="block py-2 px-4 hover:bg-gray-600">Sub-Account Withdrawals</a>
                     <form action="{{ route('logout') }}" method="POST" class="block py-2 px-4">
                         @csrf
                         <button type="submit" class="w-full bg-red-500 hover:bg-red-700 text-white font-bold rounded py-2">
@@ -66,7 +68,7 @@
         <!-- Main Content -->
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
             <h1 class="text-4xl font-bold mb-4">Welcome, {{ auth()->user()->username }}!</h1>
-            <p class="text-xl mb-4">Current Balance: ${{ number_format(auth()->user()->balance, 2) }}</p>
+            <p class="text-xl mb-4">Current Balance: {{ number_format(auth()->user()->balance, 2) }}</p>
         </div>
 
         @yield('content')

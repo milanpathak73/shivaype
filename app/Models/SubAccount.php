@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class SubAccount extends Authenticatable
 {
-    protected $fillable = ['client_id', 'username', 'password', 'is_active'];
+    protected $fillable = ['client_id', 'username', 'password', 'is_active', 'email'];
 
     protected $hidden = ['password'];
 
@@ -14,4 +14,8 @@ class SubAccount extends Authenticatable
     {
         return $this->belongsTo(Client::class);
     }
+    public function withdrawals()
+{
+    return $this->hasMany(Withdrawal::class);
+}
 }

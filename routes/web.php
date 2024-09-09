@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\ClientAuthController;
+use App\Http\Controllers\SubAccountAuthController;
 
 // Admin Routes
 
@@ -33,7 +34,10 @@ Route::middleware('auth:client')->group(function() {
     Route::get('/client/request-status', [ClientController::class, 'showRequestStatus'])->name('client.request-status');
     Route::get('/client/manage-sub-accounts', [ClientController::class, 'showManageSubAccounts'])->name('client.manage-sub-accounts');
     Route::patch('/client/manage-sub-accounts/{id}', [ClientController::class, 'updateSubAccount'])->name('client.update-sub-account');
+    Route::get('/client/subaccount/withdrawals', [ClientController::class, 'showSubAccountWithdrawals'])->name('client.subaccount.withdrawals');
+
 });
+
 
 
 Route::get('/admin/create-client', [AdminController::class, 'showCreateClientForm'])->middleware('auth:admin')->name('admin.create.client.form');
@@ -82,6 +86,11 @@ Route::get('/admin/approve-transaction/{id}', [AdminController::class, 'approveT
 // Disapprove transaction
 Route::get('/admin/disapprove-transaction/{id}', [AdminController::class, 'disapproveTransaction'])->middleware('auth:admin')->name('admin.disapprove.transaction');
 
+Route::get('/admin/withdrawals', [AdminController::class, 'showWithdrawals'])->name('admin.withdrawals');
+Route::post('/admin/withdrawals/approve/{id}', [AdminController::class, 'approveWithdrawal'])->name('admin.approve');
+Route::post('/admin/withdrawals/reject/{id}', [AdminController::class, 'rejectWithdrawal'])->name('admin.reject');
+Route::post('/admin/withdrawals/upload/{id}', [AdminController::class, 'uploadImage'])->name('admin.uploadImage');
+Route::get('/admin/withdrawal-history', [AdminController::class, 'showWithdrawalHistory'])->name('admin.withdrawal.history');
 
 Route::get('/admin/dashboard', function() {
     return view('admin.dashboard');
@@ -94,3 +103,20 @@ Route::get('/client/dashboard', function() {
 
 Route::post('/sub-account/create', [SubAccountController::class, 'createSubAccount'])->middleware('auth:client')->name('subaccount.create');
 Route::post('/transaction/request', [SubAccountController::class, 'requestTransaction'])->middleware('auth:client')->name('transaction.request');
+
+Route::get('/subaccount/login', [SubAccountAuthController::class, 'showLoginForm'])->name('subaccount.login');
+Route::post('/subaccount/login', [SubAccountAuthController::class, 'login']);
+//Route::post('/subaccount/logout', [SubAccountAuthController::class, 'logout'])->name('subaccount.logout');
+
+Route::middleware(['auth:subaccount'])->group(function () {
+    Route::get('/subaccount/dashboard', [SubAccountAuthController::class, 'dashboard'])->name('subaccount.dashboard');
+    Route::get('/subaccount/requests', [SubAccountAuthController::class, 'showRequests'])->name('subaccount.requests');
+    Route::get('/subaccount/transactions', [SubAccountAuthController::class, 'showTransactions'])->name('subaccount.transactions');
+    Route::get('/subaccount/balance', [SubAccountAuthController::class, 'showBalance'])->name('subaccount.balance');
+    Route::post('/subaccount/logout', [SubAccountAuthController::class, 'logout'])->name('subaccount.logout');
+    Route::get('/subaccount/withdrawal', [SubAccountAuthController::class, 'withdrawalForm'])->name('subaccount.withdrawal');
+    Route::post('/subaccount/withdrawal', [SubAccountAuthController::class, 'submitWithdrawal'])->name('subaccount.withdrawal.submit');
+    Route::get('/subaccount/withdrawal-history', [SubAccountAuthController::class, 'withdrawalHistory'])->name('subaccount.withdrawal.history');
+
+});
+

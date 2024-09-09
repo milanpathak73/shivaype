@@ -13,6 +13,7 @@ class CreateSubAccountsTable extends Migration
             $table->unsignedBigInteger('client_id');
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('email')->unique();
             $table->boolean('is_active')->default(true);
             $table->decimal('balance', 10, 2)->default(0);
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

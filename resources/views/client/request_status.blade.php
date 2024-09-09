@@ -17,7 +17,7 @@
                 @foreach ($transactions as $transaction)
                     <tr>
                         <td class="py-2 px-4 border-b">{{ $transaction->request_details }}</td>
-                        <td class="py-2 px-4 border-b">${{ $transaction->amount }}</td>
+                        <td class="py-2 px-4 border-b">{{ $transaction->amount }}</td>
                         <td class="py-2 px-4 border-b">{{ $transaction->transaction_type }}</td>
                         <td class="py-2 px-4 border-b">{{ ucfirst($transaction->status) }}</td>
                     </tr>

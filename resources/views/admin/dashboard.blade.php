@@ -35,6 +35,7 @@
                     <a href="{{ route('admin.create.client.form') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Create Client</a>
                     <a href="{{ route('admin.clients') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Clients</a>
                     <a href="{{ route('admin.transactions') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Transactions</a>
+                    <a href="{{ route('admin.withdrawal.history') }}" class="py-2 px-4 hover:bg-gray-700 rounded">Withdrawal History</a>
                 </div>
                 <div class="hidden lg:block">
                     <a href="{{ route('admin.logout') }}" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
